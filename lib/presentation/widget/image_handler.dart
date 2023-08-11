@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
@@ -36,7 +34,7 @@ class ImageHandler extends StatelessWidget {
         : ClipRRect(
             borderRadius: BorderRadius.circular(radius),
             child: CachedNetworkImage(
-              imageUrl: loadSprite(imageUrl.toString()),
+              imageUrl: imageUrl.toString(),
               fit: BoxFit.cover,
               height: height,
               width: width,
@@ -60,16 +58,20 @@ class ImageHandler extends StatelessWidget {
 }
 
 String loadSprite(String url) {
-  // Remove the base URL and slashes
   String path = url.replaceAll("https://pokeapi.co/api/v2/pokemon/", "");
 
-  // Split the path by slashes and take the first element
   String numberString = path.split("/")[0];
 
-  // Convert the number string to an integer
   int number = int.tryParse(numberString) ?? 0;
   final imageUrl =
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$number.png";
+
+  return imageUrl;
+}
+
+String loadItems(String? name) {
+  final imageUrl =
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/$name.png";
 
   return imageUrl;
 }

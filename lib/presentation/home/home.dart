@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poke_mon/presentation/home/widget/form_dialog.dart';
 import 'package:poke_mon/presentation/home/widget/pokemon_card.dart';
 import 'package:poke_mon/presentation/pagination_controller/pagination_controller.dart';
 import 'package:poke_mon/presentation/util/appFont/app_font.dart';
+import 'package:poke_mon/presentation/util/dialog/app_dialog.dart';
 import 'package:poke_mon/presentation/util/spacer/app_spacer.dart';
 import 'package:poke_mon/presentation/widget/loading_widget.dart';
 import 'package:poke_mon/presentation/widget/search_box.dart';
@@ -28,6 +30,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your action here
+          AppDialog.showAppForm(context: context, child: const FormDialog());
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -79,7 +89,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 10.0,
-                              crossAxisSpacing: 10.0,
+                              crossAxisSpacing: 15.0,
                             ),
                             itemCount: pokemon.pokemon.length,
                             itemBuilder: (context, index) {

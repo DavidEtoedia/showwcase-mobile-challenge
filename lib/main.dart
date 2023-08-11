@@ -4,8 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poke_mon/data/core/storage/hive_service_provider.dart';
 import 'package:poke_mon/data/core/storage/hive_storage_service.dart';
 import 'package:poke_mon/data/core/storage/storage_service.dart';
-import 'package:poke_mon/presentation/home/home.dart';
+import 'package:poke_mon/presentation/main_screen.dart';
 import 'package:poke_mon/presentation/util/appFont/app_font.dart';
+import 'package:poke_mon/presentation/util/navigator/navigator.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -25,13 +26,14 @@ class MyApp extends StatelessWidget {
     final TextTheme customTheme = textThemes.apply(fontFamily: kAppFontFamily);
     return MaterialApp(
       title: 'Pokemon',
+      navigatorKey: navigator.key,
       theme: ThemeData(
           useMaterial3: true,
           scaffoldBackgroundColor: Colors.white,
           textTheme: customTheme,
           fontFamily: kAppFontFamily,
           primarySwatch: Colors.blue),
-      home: const HomeScreen(),
+      home: const MainScreen(),
     );
   }
 }

@@ -1,9 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:poke_mon/data/core/storage/storage_service.dart';
 
-/// [StorageService] interface implementation using the Hive package
-///
-/// See: https://pub.dev/packages/hive_flutter
 class HiveStorageService implements StorageService {
   /// A Hive Box
   late Box<dynamic> hiveBox;

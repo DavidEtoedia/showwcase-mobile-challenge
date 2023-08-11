@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poke_mon/data/core/service/http_service_provider.dart';
+import 'package:poke_mon/domain/entity/pokemon/pokemon_ability.dart';
 import 'package:poke_mon/domain/entity/pokemon/pokemon_model.dart';
 import 'package:poke_mon/domain/repository/pokemon_implementation.dart';
 
@@ -10,4 +11,5 @@ final pokemonRepositoryProvider = Provider<PokemonImpl>((ref) {
 
 abstract class PokemonRepository {
   Future<Pokemon> getAllPokemons([int offset = 1]);
+  Future<PokemonDetail> pokemonDetail(String name);
 }

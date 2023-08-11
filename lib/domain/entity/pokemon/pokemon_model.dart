@@ -27,13 +27,11 @@ class Pokemon {
 }
 
 class Result {
-  String? name;
-  String? url;
+  String name;
+  String url;
+  bool isLike;
 
-  Result({
-    this.name,
-    this.url,
-  });
+  Result({required this.name, required this.url, this.isLike = false});
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         name: json["name"],

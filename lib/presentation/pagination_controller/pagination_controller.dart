@@ -123,25 +123,30 @@ class PokemonController extends StateNotifier<PokemonState> {
       state = state.copyWith(pokemon: state.filterPokemon);
     } else {
       for (var res in state.filterPokemon) {
-        if (res.name!.contains(value)) {
+        if (res.name.contains(value)) {
           state = state.copyWith(pokemon: state.filterPokemon);
         }
       }
       results = state.pokemon
           .where((element) =>
-              element.name!.toLowerCase().contains(value.toLowerCase()))
+              element.name.toLowerCase().contains(value.toLowerCase()))
           .toList();
 
       state = state.copyWith(pokemon: results);
     }
   }
 
-  bool containsLetterOneByOne(String text, String letter) {
-    for (int i = 0; i < text.length; i++) {
-      if (text[i].toLowerCase() == letter.toLowerCase()) {
-        return true;
-      }
-    }
-    return false;
+  void toggle(String id) {
+    state = state.copyWith(pokemon: [
+      for (final todo in state.pokemon)
+        if (todo.name == id)
+          Result(
+            name: todo.name,
+            url: todo.url,
+            isLike: !todo.isLike,
+          )
+        else
+          todo,
+    ]);
   }
 }

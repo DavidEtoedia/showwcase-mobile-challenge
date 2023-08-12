@@ -1,63 +1,40 @@
-import 'package:equatable/equatable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poke_mon/domain/entity/pokemon/pokemon_model.dart';
-import 'package:poke_mon/presentation/home/pagination_controller/pagination_controller.dart';
-
-class PersonalPokemonState extends Equatable {
-  final List<Result> pokemon;
-
-  const PersonalPokemonState({
-    required this.pokemon,
-  });
-
-  factory PersonalPokemonState.initial() {
-    return const PersonalPokemonState(
-      pokemon: [],
-    );
-  }
-
-  PersonalPokemonState copyWith({final List<Result>? pokemon}) {
-    return PersonalPokemonState(
-      pokemon: pokemon ?? this.pokemon,
-    );
-  }
-
-  @override
-  List<Object?> get props => [
-        pokemon,
-      ];
-}
 
 final personalPokemonProvider =
-    StateNotifierProvider<PersonalPokemonController, PersonalPokemonState>(
+    StateNotifierProvider<PersonalPokemonController, List<Result>>(
   (ref) => PersonalPokemonController(ref),
 );
 
-class PersonalPokemonController extends StateNotifier<PersonalPokemonState> {
+class PersonalPokemonController extends StateNotifier<List<Result>> {
   final Ref ref;
-  PersonalPokemonController(this.ref) : super(PersonalPokemonState.initial());
+  PersonalPokemonController(this.ref) : super([]);
 
-  void addPokemon(String text) {
-    final pokemon = ref.watch(pokemonControllerProvider);
+  void addPokemon(String text, List<Result> result) {
     List<Result> matchingPokemon = [];
 
-    for (var value in pokemon.pokemon) {
+    for (var value in result) {
       if (value.name.contains(text)) {
-        matchingPokemon.add(value);
+        var saved = Result(name: value.name, url: value.url);
+        if (!state.contains(saved)) {
+          matchingPokemon.add(saved);
+        }
+
+        break;
       }
     }
 
     if (matchingPokemon.isNotEmpty) {
-      state = state.copyWith(pokemon: [...state.pokemon, ...matchingPokemon]);
+      state = [...state, ...matchingPokemon];
     }
   }
 
   removePokeMon(Result target) {
-    state.pokemon.remove(target);
+    state.remove(target);
 
-    state = state.copyWith(pokemon: [
-      for (final step in state.pokemon)
-        if (step == target) state.pokemon.removeLast() else step,
-    ]);
+    state = [
+      for (final step in state)
+        if (step == target) state.removeLast() else step,
+    ];
   }
 }

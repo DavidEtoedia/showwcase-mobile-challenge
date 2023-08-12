@@ -20,7 +20,7 @@ class FavouriteScreen extends HookConsumerWidget {
             children: [
               const Space(20),
               Text(
-                "Favourite Pokemon",
+                "Favourite Pokémon",
                 style: textTheme.bodyLarge?.copyWith(
                   fontSize: 35,
                   fontFamily: kAppHeaderFontFamily,
@@ -31,7 +31,7 @@ class FavouriteScreen extends HookConsumerWidget {
               if (favourite.isEmpty)
                 Center(
                   child: Text(
-                    "You have no favourite pokemon",
+                    "You have no favourite Pokémon",
                     style: textTheme.bodyLarge?.copyWith(
                       fontSize: 15,
                       fontFamily: kAppFontFamily,

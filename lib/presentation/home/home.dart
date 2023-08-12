@@ -38,7 +38,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          AppDialog.showAppForm(context: context, child: const FormDialog());
+          AppDialog.showAppForm(
+              context: context,
+              child: FormDialog(
+                result: pokemon.pokemon,
+              ));
         },
         backgroundColor: Colors.blue,
         child: const Icon(Icons.add),

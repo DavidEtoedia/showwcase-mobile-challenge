@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return Consumer(builder: (context, ref, child) {
       final darkEnabled = ref.watch(themesModeProvider);
       return MaterialApp(
-        title: 'Pokemon',
+        title: 'Pokémon',
         debugShowCheckedModeBanner: false,
         navigatorKey: navigator.key,
         theme: themeBuilder(ThemeData.light()),

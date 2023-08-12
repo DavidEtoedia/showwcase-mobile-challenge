@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poke_mon/presentation/home/pagination_controller/pagination_controller.dart';
+import 'package:poke_mon/domain/entity/pokemon/pokemon_model.dart';
 import 'package:poke_mon/presentation/screens/personal_pokemon/controller/personal_pokenmon_controller.dart';
 import 'package:poke_mon/presentation/util/spacer/app_spacer.dart';
 import 'package:poke_mon/presentation/util/text_form_input.dart';
+import 'package:poke_mon/presentation/util/validator.dart';
 
 class FormDialog extends ConsumerStatefulWidget {
-  const FormDialog({super.key});
+  final List<Result> result;
+  const FormDialog({super.key, required this.result});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _FormDialogState();
@@ -25,8 +27,7 @@ class _FormDialogState extends ConsumerState<FormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final pokemon = ref.watch(pokemonControllerProvider);
-
+    final personal = ref.watch(personalPokemonProvider);
     return AlertDialog(
       title: const Text('Add Pokemon'),
       content: Form(
@@ -39,20 +40,8 @@ class _FormDialogState extends ConsumerState<FormDialog> {
               labelText: "Enter Pokémon Name",
               controller: pokemonText,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) {
-                bool found = false;
-                for (var val in pokemon.pokemon) {
-                  if (val.name.contains(value!)) {
-                    found = true;
-                    break;
-                  }
-                }
-                if (!found) {
-                  return "There is no such Pokémon";
-                }
-
-                return null;
-              },
+              validator: (value) =>
+                  validatePokemon(value, widget.result, personal),
             ),
             const Space(20),
             TextButton(
@@ -61,7 +50,7 @@ class _FormDialogState extends ConsumerState<FormDialog> {
                 if (_formKey.currentState!.validate()) {
                   ref
                       .read(personalPokemonProvider.notifier)
-                      .addPokemon(pokemonText.text);
+                      .addPokemon(pokemonText.text, widget.result);
                   Navigator.of(context).pop();
                 }
               },

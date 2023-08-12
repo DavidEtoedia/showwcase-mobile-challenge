@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poke_mon/domain/entity/pokemon/pokemon_model.dart';
-import 'package:poke_mon/presentation/pagination_controller/pagination_controller.dart';
+import 'package:poke_mon/presentation/home/pagination_controller/pagination_controller.dart';
 
 class PersonalPokemonState extends Equatable {
   final List<Result> pokemon;

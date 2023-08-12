@@ -5,7 +5,7 @@ import 'package:poke_mon/data/core/interceptors/cache_interceptor.dart';
 import 'package:poke_mon/data/core/service/http_service.dart';
 import 'package:poke_mon/data/core/storage/storage_service.dart';
 import 'package:poke_mon/data/utils/pokemon_url.dart';
-import 'package:poke_mon/domain/entity/cache/config.dart';
+import 'package:poke_mon/data/core/storage/cache/config.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioHttpService implements HttpService {

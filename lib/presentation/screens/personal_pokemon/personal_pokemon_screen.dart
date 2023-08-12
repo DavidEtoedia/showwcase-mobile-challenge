@@ -17,30 +17,47 @@ class PersonPokeMon extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Space(30),
+              const Space(20),
               Text(
                 "Personal Pokemon",
                 style: textTheme.bodyLarge?.copyWith(
-                  fontSize: 30,
-                  fontFamily: kAppFontFamily,
-                  color: Colors.black,
+                  fontSize: 35,
+                  fontFamily: kAppHeaderFontFamily,
                   fontWeight: AppFontWeight.bold,
                 ),
               ),
               const Space(30),
-              Expanded(
-                  child: ListView.separated(
-                itemCount: savedPokemon.pokemon.length,
-                itemBuilder: (context, index) {
-                  final saved = savedPokemon.pokemon[index];
-                  return PersonalPokemonCard(result: saved);
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 20,
-                ),
-              ))
+              if (savedPokemon.pokemon.isEmpty)
+                Center(
+                  child: Text(
+                    "You have no Personal Pokemon",
+                    style: textTheme.bodyLarge?.copyWith(
+                      fontSize: 15,
+                      fontFamily: kAppFontFamily,
+                      fontWeight: AppFontWeight.light,
+                    ),
+                  ),
+                )
+              else
+                Expanded(
+                    child: ListView.separated(
+                  itemCount: savedPokemon.pokemon.length,
+                  itemBuilder: (context, index) {
+                    final saved = savedPokemon.pokemon[index];
+                    return PersonalPokemonCard(
+                      result: saved,
+                      onPressed: () {
+                        ref
+                            .read(personalPokemonProvider.notifier)
+                            .removePokeMon(saved);
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 20,
+                  ),
+                ))
             ],
           ),
         ),

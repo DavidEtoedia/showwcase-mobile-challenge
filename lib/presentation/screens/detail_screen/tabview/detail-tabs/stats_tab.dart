@@ -26,18 +26,16 @@ class StatsTab extends StatelessWidget {
                             style: textTheme.displayMedium?.copyWith(
                               fontSize: 15,
                               fontFamily: kAppFontFamily,
-                              color: Colors.black,
-                              fontWeight: AppFontWeight.light,
+                              fontWeight: AppFontWeight.semibold,
                             )),
                         const Space(20),
                         LinearPercentIndicator(
                           padding: EdgeInsets.zero,
                           backgroundColor: Colors.grey.shade300,
                           width: MediaQuery.of(context).size.width - 80,
-                          //animation: true,
+                          animation: true,
                           lineHeight: 5,
                           percent: data.stats![index].baseStat / 200,
-
                           barRadius: const Radius.circular(20),
                           progressColor: Colors.green,
                         )

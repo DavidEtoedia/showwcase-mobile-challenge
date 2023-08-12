@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poke_mon/presentation/pagination_controller/pagination_controller.dart';
+import 'package:poke_mon/presentation/home/pagination_controller/pagination_controller.dart';
 import 'package:poke_mon/presentation/screens/personal_pokemon/controller/personal_pokenmon_controller.dart';
 import 'package:poke_mon/presentation/util/spacer/app_spacer.dart';
+import 'package:poke_mon/presentation/util/text_form_input.dart';
 
 class FormDialog extends ConsumerStatefulWidget {
   const FormDialog({super.key});
@@ -34,14 +34,11 @@ class _FormDialogState extends ConsumerState<FormDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            TextFormField(
+            const Space(20),
+            TextFormInput(
+              labelText: "Enter Pokémon Name",
               controller: pokemonText,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: const InputDecoration(labelText: 'Name'),
-              inputFormatters: [
-                FilteringTextInputFormatter.deny(RegExp('[ ]')),
-                FilteringTextInputFormatter(RegExp(r'[a-zA-Z]'), allow: true),
-              ],
               validator: (value) {
                 bool found = false;
                 for (var val in pokemon.pokemon) {
@@ -54,7 +51,7 @@ class _FormDialogState extends ConsumerState<FormDialog> {
                   return "There is no such Pokémon";
                 }
 
-                return null; // Input is valid
+                return null;
               },
             ),
             const Space(20),
@@ -68,7 +65,7 @@ class _FormDialogState extends ConsumerState<FormDialog> {
                   Navigator.of(context).pop();
                 }
               },
-              child: const Text('Submit'),
+              child: const Text('Save'),
             ),
           ],
         ),

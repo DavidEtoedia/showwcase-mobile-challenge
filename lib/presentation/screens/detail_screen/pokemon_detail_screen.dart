@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poke_mon/domain/entity/pokemon/pokemon_model.dart';
-import 'package:poke_mon/presentation/pagination_controller/pagination_controller.dart';
 import 'package:poke_mon/presentation/screens/detail_screen/provider/pokemon_detail_provider.dart';
-import 'package:poke_mon/presentation/screens/detail_screen/widget/tabview/tabview.dart';
+import 'package:poke_mon/presentation/screens/detail_screen/tabview/tabview.dart';
+import 'package:poke_mon/presentation/screens/detail_screen/widget/retry_button.dart';
 import 'package:poke_mon/presentation/widget/image_handler.dart';
 import 'package:poke_mon/utils.dart';
 
@@ -24,6 +24,7 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 25, right: 25),
@@ -34,7 +35,6 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
                 style: textTheme.displayMedium?.copyWith(
                   fontSize: 70,
                   fontFamily: kAppHeaderFontFamily,
-                  color: Colors.black,
                   fontWeight: AppFontWeight.light,
                 ),
               ),
@@ -42,7 +42,7 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
                 child: Hero(
                     tag: "image ${widget.result.name}",
                     child: ImageHandler(
-                        height: 150,
+                        height: 130,
                         width: 150,
                         imageUrl: loadSprite(widget.result.url))),
               ),
@@ -50,7 +50,14 @@ class _PokemonDetailScreenState extends ConsumerState<PokemonDetailScreen> {
                   data: (data) {
                     return DetailTabView(data: data);
                   },
-                  error: (e, s) => Text(e.toString()),
+                  error: (e, s) => RetryButton(
+                        isLoading: detailProvider.isLoading,
+                        text: e.toString(),
+                        onPressed: () {
+                          ref.invalidate(
+                              pokemondetailsProvider(widget.result.name));
+                        },
+                      ),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()))
             ],

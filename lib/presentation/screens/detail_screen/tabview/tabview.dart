@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poke_mon/domain/entity/pokemon/pokemon_ability.dart';
-import 'package:poke_mon/presentation/screens/detail_screen/widget/tabview/detail-tabs/about_tab.dart';
-import 'package:poke_mon/presentation/screens/detail_screen/widget/tabview/detail-tabs/stats_tab.dart';
+import 'package:poke_mon/presentation/screens/detail_screen/tabview/detail-tabs/about_tab.dart';
+import 'package:poke_mon/presentation/screens/detail_screen/tabview/detail-tabs/stats_tab.dart';
 import 'package:poke_mon/utils.dart';
 
 class DetailTabView extends StatefulWidget {
@@ -37,7 +37,6 @@ class _DetailTabViewState extends State<DetailTabView>
                 controller: _tabController,
                 splashBorderRadius: BorderRadius.circular(10),
                 dividerColor: Colors.transparent,
-                labelColor: Colors.black,
                 labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       // color: AppColors.captionColor,
                       fontSize: 17,

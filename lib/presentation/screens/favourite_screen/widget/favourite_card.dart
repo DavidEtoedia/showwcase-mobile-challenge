@@ -3,17 +3,17 @@ import 'package:poke_mon/domain/entity/pokemon/pokemon_model.dart';
 import 'package:poke_mon/presentation/widget/image_handler.dart';
 import 'package:poke_mon/utils.dart';
 
-class PersonalPokemonCard extends StatelessWidget {
+class FavouritePokemonCard extends StatelessWidget {
   final Result result;
   final Function()? onPressed;
-  const PersonalPokemonCard({super.key, required this.result, this.onPressed});
+  const FavouritePokemonCard({super.key, required this.result, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Card(
         child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ImageHandler(
           height: 100,
@@ -33,8 +33,7 @@ class PersonalPokemonCard extends StatelessWidget {
         IconButton(
             onPressed: onPressed,
             icon: const Icon(
-              Icons.delete_forever,
-              color: Colors.red,
+              Icons.favorite,
             )),
         const Space(20),
       ],

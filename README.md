@@ -1,4 +1,4 @@
-# poke_mon
+# Pokemon Challenge
 
 A new Flutter project.
 

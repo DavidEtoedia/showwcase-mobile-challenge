@@ -4,8 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poke_mon/data/core/storage/hive_service_provider.dart';
 import 'package:poke_mon/data/core/storage/hive_storage_service.dart';
 import 'package:poke_mon/data/core/storage/storage_service.dart';
-import 'package:poke_mon/presentation/main_screen.dart';
-import 'package:poke_mon/presentation/util/appFont/app_font.dart';
+import 'package:poke_mon/presentation/auth/login_screen.dart';
+import 'package:poke_mon/presentation/theme/theme.dart';
+import 'package:poke_mon/presentation/theme/theme_state.dart';
 import 'package:poke_mon/presentation/util/navigator/navigator.dart';
 
 Future<void> main() async {
@@ -22,18 +23,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textThemes = Theme.of(context).textTheme;
-    final TextTheme customTheme = textThemes.apply(fontFamily: kAppFontFamily);
-    return MaterialApp(
-      title: 'Pokemon',
-      navigatorKey: navigator.key,
-      theme: ThemeData(
-          useMaterial3: true,
-          scaffoldBackgroundColor: Colors.white,
-          textTheme: customTheme,
-          fontFamily: kAppFontFamily,
-          primarySwatch: Colors.blue),
-      home: const MainScreen(),
-    );
+    return Consumer(builder: (context, ref, child) {
+      final darkEnabled = ref.watch(themesModeProvider);
+      return MaterialApp(
+        title: 'Pokémon',
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigator.key,
+        theme: themeBuilder(ThemeData.light()),
+        darkTheme: themeBuilder(ThemeData.dark()),
+        themeMode: darkEnabled,
+        home: const LoginScreen(),
+      );
+    });
   }
 }

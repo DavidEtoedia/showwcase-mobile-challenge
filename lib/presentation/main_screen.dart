@@ -34,19 +34,18 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           currentIndex: pageIndex,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.blue,
           elevation: 20,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.bolt),
+                icon: Icon(Icons.bolt_outlined),
                 activeIcon: Icon(Icons.bolt),
                 label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.cyclone),
+                icon: Icon(Icons.cyclone_outlined),
                 activeIcon: Icon(Icons.cyclone),
                 label: 'Personal'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
+                icon: Icon(Icons.favorite_outline_outlined),
                 activeIcon: Icon(Icons.favorite),
                 label: 'Favourite'),
           ],

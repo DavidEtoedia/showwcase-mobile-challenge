@@ -6,20 +6,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:poke_mon/data/core/connection/connection.dart';
 import 'package:poke_mon/data/core/storage/storage_service.dart';
-import 'package:poke_mon/domain/entity/cache/cache_response.dart';
-import 'package:poke_mon/domain/entity/cache/config.dart';
+import 'package:poke_mon/data/core/storage/cache/cache_response.dart';
+import 'package:poke_mon/data/core/storage/cache/config.dart';
 
 class CacheInterceptor implements Interceptor {
-  /// Creates new instance of [CacheInterceptor]
   CacheInterceptor(this.storageService);
 
-  /// Storage service used to store cache in local storage
   final StorageService storageService;
 
-  /// Helper method to create a storage key from
-  /// request/response information
-  ///
-  @visibleForTesting
   String createStorageKey(
     String method,
     String baseUrl,

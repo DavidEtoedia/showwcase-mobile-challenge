@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Pokemon pokemonFromJson(String str) => Pokemon.fromJson(json.decode(str));
 
 class Pokemon {
@@ -26,12 +28,15 @@ class Pokemon {
       );
 }
 
-class Result {
-  String name;
-  String url;
-  bool isLike;
+class Result extends Equatable {
+  final String name;
+  final String url;
+  final bool isLike;
 
-  Result({required this.name, required this.url, this.isLike = false});
+  const Result({required this.name, required this.url, this.isLike = false});
+
+  @override
+  List<Object?> get props => [name, url, isLike];
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         name: json["name"],
